@@ -30,7 +30,7 @@ sendToCheck = function(blob)
 
 var fd = new FormData();
 console.log(blob.filename);
-console.log(blob)
+//console.log(blob)
 fd.append('file', blob);
 fd.append("type", blob.type)
 $.ajax({
@@ -48,12 +48,12 @@ $.ajax({
 safeDownload = function(url_obj){
 	url_str = url_obj.linkUrl;
 	//$.get(url_str, function(data, status, xhr){
-		console.log(xhr);
-	 	console.log(url_str.substring(url_str.lastIndexOf("/") + 1).split("?")[0]);
+		//console.log(xhr);
+	 	//console.log(url_str.substring(url_str.lastIndexOf("/") + 1).split("?")[0]);
     //});
-	console.log(url_obj)
+	//console.log(url_obj)
 	//chrome.downloads.download({url:url_str,filename:"unsafe/tmp/x.x"})
-    console.log(url_str);
+    //console.log(url_str);
 
     var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function(){
