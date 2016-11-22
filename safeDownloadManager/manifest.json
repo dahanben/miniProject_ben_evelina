@@ -1,0 +1,19 @@
+{
+  "manifest_version": 2,
+  "name": "Safe Download Manager",
+  "short_name": "SDM",
+  "description": "Detects melicious files and prevents the user from downloading it",
+  "version": "0.0.1",
+  "minimum_chrome_version": "38",
+  "permissions": [
+    "http://*/*",
+    "https://*/*",
+    "contextMenus", 
+    "tabs",
+    "downloads"],
+  "icons": {
+    "16": "assets/search.png"
+  },
+  "background": {"scripts": ["jquery.js", "main.js"]}
+
+}
