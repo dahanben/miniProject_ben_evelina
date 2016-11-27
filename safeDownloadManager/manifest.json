@@ -8,12 +8,22 @@
   "permissions": [
     "http://*/*",
     "https://*/*",
-    "contextMenus", 
+    "contextMenus",
+    "notifications", 
     "tabs",
     "downloads"],
+      "web_accessible_resources": [
+    "assets/search.png"],
   "icons": {
     "16": "assets/search.png"
   },
-  "background": {"scripts": ["jquery.js", "main.js"]}
+
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["jquery.js", "jquery_ui.js","popup.js"]
+    }
+  ],
+  "background": {"scripts": ["jquery.js", "main.js" ]}
 
 }
