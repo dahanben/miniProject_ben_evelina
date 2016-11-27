@@ -98,7 +98,7 @@ sendToCheck = function(blob, url_to_download) {
     fd.append('file', blob);
     $.ajax({
         type: 'POST',
-        url: 'http://127.0.0.1:8080/upload',
+        url: 'https://sdm-server.herokuapp.com/upload',
         data: fd,
         processData: false,
         contentType: false
