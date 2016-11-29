@@ -144,7 +144,7 @@ fileDownloadSuccessCallback = function(url_to_download, data, status) {
 
 chrome.contextMenus.create({
     title: "Safe Download",
-    contexts: ["link", "editable", "image", "video", "audio", "all"], // TODO: check good stuff
+    contexts: [  "all"], // TODO: check good stuff
     onclick: safeDownload
 });
 
