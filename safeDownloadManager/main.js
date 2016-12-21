@@ -1,4 +1,6 @@
 var urlNotif = {};
+var timer;
+var Globalprog=0;
 
 safeDownload = function(url_obj) {
     console.log(url_obj)
@@ -12,7 +14,7 @@ safeDownload = function(url_obj) {
     else
         url_str = url_obj.srcUrl;
 
-    uploadToServer(url_str);
+    awaitingResponse(url_str,0);
 }
 
 uploadToServer = function(url_to_upload) {
@@ -54,6 +56,46 @@ popupUrlOrSrc = function(url_obj) {
     });
 }
 
+awaitingResponse = function(url_str,prog) {
+    chrome.notifications.create("1", {
+        type: "progress",
+        iconUrl: "assets/search.png",
+        title: "Awaiting Response",
+        message: "",
+        progress: prog,
+        contextMessage: "please wait for SDM's response",
+        requireInteraction: false,
+    }, function(id) {
+    uploadToServer(url_str);
+    //updateAwaitingResponse(null,Globalprog);
+    timer = setInterval(myTimer, 1000);
+
+    });
+}
+function myTimer() {
+    if(Globalprog<=99)
+        Globalprog++;
+   finishAwaitingResponse(null,Globalprog); 
+}
+
+finishAwaitingResponse = function(url_str,prog) {
+	if(prog < 100){
+    	chrome.notifications.update("1", {
+       	 progress: prog,
+    	}, function(id) {
+   	
+    	});
+	}else{
+		chrome.notifications.update("1", {
+       	 title: "File scan completed successfully",
+       	 progress: prog,
+       	 contextMessage: "Scan summary can be found at:",
+    	}, function(id) {
+   	
+    	});
+	}
+
+}
 
 buttonOrLinkCallback = function(buttonIndex, url_obj) {
     switch (buttonIndex) {
@@ -66,7 +108,7 @@ buttonOrLinkCallback = function(buttonIndex, url_obj) {
             url_str = url_obj.linkUrl;
             break;
     }
-    uploadToServer(url_str);
+    awaitingResponse(url_str,0);
 }
 
 downloadNotifClick = function(notificationId, buttonIndex) {
@@ -113,6 +155,9 @@ fileDownloadSuccessCallback = function(url_to_download, data, status) {
     var alertMsg = undefined;
     obj = JSON.parse(data);
     console.log(obj);
+    Globalprog =100;
+    window.clearInterval(timer);
+    finishAwaitingResponse(null,Globalprog); 
     if (obj["status"])
         chrome.downloads.download({
             url: url_to_download
