@@ -61,6 +61,10 @@ def upload():
                                     params=params, headers=headers)
             json_second_response = response.json()
         if 'positives' in json_second_response:
+            try:
+                os.remove(filename)
+            except Exception as error:
+                app.logger.error("Error removing or closing downloaded file handle", error)
             a = json_second_response.get('positives')
             if int(a) > 0:
                 app.logger.debug(json_second_response)
