@@ -1,2 +1,2 @@
-# SearchTool
-A simple chrome extension that let's you search for the selected text in UrbanDictionary.
+# SDM - safe download manager
+A chrome extension that let's you scan files for malware before downloading it.
